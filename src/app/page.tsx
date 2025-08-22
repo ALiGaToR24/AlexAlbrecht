@@ -3,7 +3,6 @@ import Link from "next/link";
 import styles from "./Home.module.css";
 import Image from "next/image";
 import Footer from "@/components/layout/Footer";
-import StepsSlider from "@/components/sections/StepsSlider";
 import ProgramSteps from "@/components/sections/ProgramSteps";
 
 export default function Home() {
