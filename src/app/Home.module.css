@@ -1,0 +1,219 @@
+/* HERO */
+.hero {
+    position: relative;
+    min-height: 92vh;
+    /* почти во весь экран */
+    background-image: url("/Hero.jpg");
+    background-size: cover;
+    background-position: center;
+    padding-top: 90px;
+    /* чтобы не залезало под fixed-top navbar */
+}
+
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.heroTitle {
+    font-size: clamp(28px, 4.2vw, 56px);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.heroBadges .badge {
+    margin-right: .5rem;
+    font-weight: 500;
+    padding: .6rem .9rem;
+}
+
+/* стеклянные карточки */
+.glassCard {
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    max-width: 420px;
+}
+
+/* ОДНА общая секция под карточки + сплит */
+.darkSection {
+    background: #070707;
+}
+
+.sectionPadded {
+    padding: 56px 0 80px;
+}
+
+/* Ряд карточек — убираем лишние внешние зазоры */
+.cardsRow {
+    margin-bottom: 40px;
+}
+
+/* Карточки как в макете */
+.featureCard {
+    border-radius: 22px;
+    background: #141415;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.featureCard:hover {
+    transform: translateY(-3px);
+    border-color: rgba(231, 21, 68, .45);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .45);
+}
+
+.iconBox {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    /* ⬅️ расстояние между иконкой и заголовком */
+}
+
+.moreInformationButton {
+    background-color: #E71544;
+    border: none;
+    border-radius: 8px;
+}
+.moreLink {
+    color: #e71544;
+    /* текст красный */
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.moreLink::before {
+    content: "›";
+    color: #fff;
+    font-size: 40px;
+    /* больше размер */
+    font-weight: 200;
+    /* тоньше (light) */
+    line-height: 1;
+    transform: translateY(-1px);
+    transition: transform .2s ease;
+}
+
+.moreLink:hover::before {
+    transform: translate(2px, -1px);
+}
+
+/* Сплит-блок: сближаем визуально с карточками */
+.splitRow {
+    margin-top: 12px;
+}
+
+/* Картинка-виджет */
+.stepsImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 22px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .45);
+    border: 1px solid rgba(255, 255, 255, .06);
+}
+
+/* Заголовок справа */
+.splitTitle {
+    font-size: clamp(26px, 3.2vw, 44px);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+/* Адаптив: чуть плотнее на планшете/мобиле */
+@media (max-width: 991.98px) {
+    .cardsRow {
+        margin-bottom: 28px;
+    }
+
+    .splitRow {
+        margin-top: 0;
+    }
+}
+
+/* Кнопки внутри Hero */
+@media (max-width: 767.98px) {
+  .hero .btn-lg {
+    padding: 0.65rem 1rem;
+    font-size: 1rem;
+    width: 100%;       /* кнопки во всю ширину, красиво для пальца */
+  }
+
+  .heroBadges {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Карточки */
+@media (max-width: 767.98px) {
+  .featureCard {
+    padding: 24px;      /* уменьшенный паддинг */
+    border-radius: 16px;
+  }
+  .iconBox {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 12px;
+  }
+  .featureCard h5 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Лента-статус в Hero */
+.statusBar {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;                      /* расстояние между кусками текста */
+  padding: 8px 14px;              /* внутренний отступ как на макете */
+  border-radius: 12px;            /* скругление прямоугольника */
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);     /* лёгкое стекло */
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.1;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),   /* внутренняя тонкая подсветка */
+    0 6px 20px rgba(0,0,0,0.35);            /* мягкая тень снизу */
+}
+
+.statusBar b,
+.accent {
+  color: #E71544;                 /* красный акцент */
+  font-weight: 700;
+}
+
+/* точки-разделители */
+.dot {
+  opacity: .9;
+  letter-spacing: 2px;            /* чтобы точка не "слиплась" */
+  transform: translateY(-1px);    /* лёгкое выравнивание по оптической линии */
+}
+
+/* на совсем узких экранах — аккуратный перенос */
+@media (max-width: 480px) {
+  .statusBar {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+}

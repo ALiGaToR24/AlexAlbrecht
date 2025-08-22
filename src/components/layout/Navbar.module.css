@@ -1,0 +1,92 @@
+.navItemFlex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* отступ между иконкой и текстом */
+  height: 40px;
+  /* одинаковая высота */
+  padding: 0 12px;
+  /* внутренний отступ, чтобы кнопки были шире */
+  font-size: 16px;
+  /* размер шрифта */
+}
+
+/* Отступ между элементами навбара */
+.navbarNav {
+  display: flex;
+  gap: 12px;
+  /* расстояние между кнопками и ссылками */
+}
+
+.navbarCustom {
+  box-shadow: none;
+  /* убираем тень */
+  background-color: rgba(0, 0, 0, 0.6);
+  /* чёрный с прозрачностью */
+  backdrop-filter: blur(5px);
+}
+
+.startButton {
+  font-weight: 500;
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.loginButton {
+  background-color: #E71544;
+  border-color: white;
+  font-size: 16px;
+  border-radius: 10px !important;
+}
+
+.registrationButton {
+  border-color: white;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px !important;
+}
+
+.infoButton {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.kontaktButton {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.kurseButton {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.impressiumButton {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.agbButton {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+@media (max-width: 991.98px) {
+  .navbarNav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 16px;
+  }
+  .navbarNav .nav-link,
+  .navbarNav .btn {
+    width: 100%; /* кнопки во всю ширину */
+    text-align: center;
+  }
+}
