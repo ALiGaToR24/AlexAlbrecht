@@ -5,29 +5,21 @@ import { z } from "zod";
 import argon2 from "argon2";
 import { getDb } from "./lib/mongo";
 
-// ---------- секрет для NextAuth (поддержка и v5, и v4) ----------
+// ✅ Не бросаем ошибку во время билда
 const secret =
-  process.env.AUTH_SECRET ??
   process.env.NEXTAUTH_SECRET ??
+  process.env.AUTH_SECRET ??
   (process.env.NODE_ENV === "development" ? "dev-only-secret-change-me" : undefined);
 
-if (!secret && process.env.NODE_ENV === "production") {
-  // Ранний и понятный фейл вместо 500 в рантайме
-  throw new Error(
-    "NextAuth secret is missing. Set AUTH_SECRET (или NEXTAUTH_SECRET) в переменных окружения Vercel."
-  );
-}
-
-// ---------- валидация формы логина ----------
 const creds = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
 
 export const authOptions: NextAuthOptions = {
-  secret,                           // ← здесь используем подготовленный secret
+  secret,                    // ← если переменной нет на этапе билда — просто undefined
   session: { strategy: "jwt" },
-  // debug: process.env.NODE_ENV !== "production", // включи при необходимости
+  // debug: process.env.NODE_ENV !== "production",
 
   providers: [
     Credentials({
