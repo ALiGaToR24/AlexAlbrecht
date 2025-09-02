@@ -9,6 +9,7 @@ import { getDb } from "./lib/mongo";
 const secret =
   process.env.NEXTAUTH_SECRET ??
   process.env.AUTH_SECRET ??
+  process.env.SECRET ??                  // ← добавили поддержку SECRET
   (process.env.NODE_ENV === "development" ? "dev-only-secret-change-me" : undefined);
 
 const creds = z.object({
