@@ -60,20 +60,52 @@ export default function Footer() {
           <div className="col-12 col-md-6 col-lg-3">
             <h6 className="text-white mb-3 text-uppercase small">Мы в соцсетях</h6>
             <div className="d-flex flex-wrap gap-2">
-              <a className="btn btn-outline-light btn-sm rounded-circle p-0 d-inline-grid place-items-center" style={{width:36, height:36}} href="#" aria-label="Instagram">
-                <i className="bi bi-instagram"></i>
+              <a
+                className="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                style={{ width: 36, height: 36 }}
+                href="https://instagram.com/yourprofile"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <Image src="/icons/instagram.png" width={36} height={36} alt="Instagram" />
               </a>
-              <a className="btn btn-outline-light btn-sm rounded-circle p-0 d-inline-grid place-items-center" style={{width:36, height:36}} href="#" aria-label="Facebook">
-                <i className="bi bi-facebook"></i>
+
+              <a
+                className="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                style={{ width: 36, height: 36 }}
+                href="https://facebook.com/yourpage"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+              >
+                <Image src="/icons/facebook.png" width={36} height={36} alt="Facebook" />
               </a>
-              <a className="btn btn-outline-light btn-sm rounded-circle p-0 d-inline-grid place-items-center" style={{width:36, height:36}} href="#" aria-label="YouTube">
-                <i className="bi bi-youtube"></i>
+
+              <a
+                className="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                style={{ width: 36, height: 36 }}
+                href="https://youtube.com/@yourchannel"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+              >
+                <Image src="/icons/youtube.png" width={36} height={36} alt="YouTube" />
               </a>
-              <a className="btn btn-outline-light btn-sm rounded-circle p-0 d-inline-grid place-items-center" style={{width:36, height:36}} href="#" aria-label="Telegram">
-                <i className="bi bi-telegram"></i>
+
+              <a
+                className="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                style={{ width: 36, height: 36 }}
+                href="https://t.me/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Telegram"
+              >
+                <Image src="/icons/telegram.png" width={36} height={36} alt="Telegram" />
               </a>
             </div>
           </div>
+
         </div>
       </div>
     </footer>

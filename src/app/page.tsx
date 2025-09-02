@@ -4,6 +4,9 @@ import styles from "./Home.module.css";
 import Image from "next/image";
 import Footer from "@/components/layout/Footer";
 import ProgramSteps from "@/components/sections/ProgramSteps";
+import FAQ from "@/components/sections/faq";
+import StickyMobileCTA from "@/components/ui/StickyMobileCTA";
+import Instructors from "@/components/sections/Instructors";
 
 export default function Home() {
   return (
@@ -136,7 +139,10 @@ export default function Home() {
 
       </section>
       <ProgramSteps></ProgramSteps>
+      <Instructors></Instructors>
+      <FAQ></FAQ>
       <Footer></Footer>
+      <StickyMobileCTA></StickyMobileCTA>
     </>
   );
 }

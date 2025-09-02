@@ -1,20 +1,43 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { useSession, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
+  const navRef = useRef<HTMLElement | null>(null);
+  const { status } = useSession();
+  const isAuthed = status === "authenticated";
+  const pathname = usePathname();
+  const onDashboard = pathname?.startsWith("/dashboard");
+
+  // сохраняем высоту navbar в CSS-переменную --nav-h
+  useEffect(() => {
+    const setNavH = () => {
+      const h = navRef.current?.offsetHeight ?? 72;
+      document.documentElement.style.setProperty("--nav-h", `${h}px`);
+    };
+    setNavH();
+    window.addEventListener("resize", setNavH);
+    return () => window.removeEventListener("resize", setNavH);
+  }, []);
+
   return (
     <nav
+      ref={navRef}
       className={`navbar navbar-expand-lg navbar-dark fixed-top border-bottom ${styles.navbarCustom}`}
     >
-      <div className="container-fluid">
-        {/* Логотип + текст */}
+      {/* Ограничиваем ширину, чтобы правая кнопка не «улетала» */}
+      <div className="container">
+        {/* ЛОГО слева */}
         <Link href="/" className="navbar-brand d-flex align-items-center gap-2">
           <Image src="/Logo.svg" width={60} height={58} alt="Logo" />
           <div className="d-flex flex-column lh-1">
             <span className="fw-bold text-white">Prodriver247</span>
-            <small className="fw-light text-white">Fahrschule Albrecht</small>
+            <small className="fw-light text-white-50">Fahrschule Albrecht</small>
           </div>
         </Link>
 
@@ -31,113 +54,67 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Центральные ссылки (схлопывающийся блок) */}
-        <div
-          className="collapse navbar-collapse justify-content-center"
-          id="mainNavbar"
-        >
-          <ul className={`navbar-nav ${styles.navbarNav}`}>
+        {/* Центр + Справа */}
+        <div className="collapse navbar-collapse" id="mainNavbar">
+          {/* ССЫЛКИ — по центру */}
+          <ul className={`navbar-nav mx-auto ${styles.navbarNav}`}>
             <li className="nav-item">
-              <Link
-                href="/start"
-                className={`${styles.navItemFlex} ${styles.startButton}`}
-              >
-                <Image
-                  src="/icons/start.svg"
-                  width={24}
-                  height={24}
-                  alt="Start icon"
-                />
+              <Link href="/start" className={`${styles.navItemFlex} ${styles.startButton}`}>
+                <Image src="/icons/start.svg" width={24} height={24} alt="Start icon" />
                 Start
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                href="/login"
-                className={`btn btn-primary ${styles.navItemFlex} ${styles.loginButton}`}
-              >
-                <Image
-                  src="/icons/login.svg"
-                  width={24}
-                  height={24}
-                  alt="Login icon"
-                />
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                href="/registration"
-                className={`btn btn-outline-primary ${styles.navItemFlex} ${styles.registrationButton}`}
-              >
-                <Image
-                  src="/icons/registration.svg"
-                  width={24}
-                  height={24}
-                  alt="Registration icon"
-                />
-                Registration
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                href="/info"
-                className={`nav-link ${styles.navItemFlex} ${styles.infoButton}`}
-              >
-                <Image
-                  src="/icons/info.svg"
-                  width={24}
-                  height={24}
-                  alt="Info icon"
-                />
+              <Link href="/info" className={`nav-link ${styles.navItemFlex} ${styles.infoButton}`}>
+                <Image src="/icons/info.svg" width={24} height={24} alt="Info icon" />
                 Info
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                href="/kontakt"
-                className={`nav-link ${styles.navItemFlex} ${styles.kontaktButton}`}
-              >
-                <Image
-                  src="/icons/kontakt.svg"
-                  width={24}
-                  height={24}
-                  alt="Kontakt icon"
-                />
+              <Link href="/kontakt" className={`nav-link ${styles.navItemFlex} ${styles.kontaktButton}`}>
+                <Image src="/icons/kontakt.svg" width={24} height={24} alt="Kontakt icon" />
                 Kontakt
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                href="/kurse"
-                className={`nav-link ${styles.navItemFlex} ${styles.kurseButton}`}
-              >
-                <Image
-                  src="/icons/kurse.svg"
-                  width={24}
-                  height={24}
-                  alt="Kurse icon"
-                />
+              <Link href="/kurse" className={`nav-link ${styles.navItemFlex} ${styles.kurseButton}`}>
+                <Image src="/icons/kurse.svg" width={24} height={24} alt="Kurse icon" />
                 Kurse
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                href="/impressum"
-                className={`nav-link ${styles.navItemFlex} ${styles.impressiumButton}`}
-              >
+              <Link href="/impressum" className={`nav-link ${styles.navItemFlex} ${styles.impressiumButton}`}>
                 Impressum
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                href="/agb"
-                className={`nav-link ${styles.navItemFlex} ${styles.agbButton}`}
-              >
+              <Link href="/agb" className={`nav-link ${styles.navItemFlex} ${styles.agbButton}`}>
                 AGB
               </Link>
             </li>
           </ul>
+
+          {/* СПРАВА: Личный кабинет / Войти / Выйти */}
+          <div className="d-flex align-items-center ms-lg-3 my-2 my-lg-0">
+            {isAuthed ? (
+              onDashboard ? (
+                <button
+                  className="btn btn-outline-light w-100 w-lg-auto"
+                  onClick={() => signOut({ callbackUrl: "/login" })}
+                >
+                  Выйти
+                </button>
+              ) : (
+                <Link href="/dashboard" className="btn btn-danger w-100 w-lg-auto">
+                  Личный кабинет
+                </Link>
+              )
+            ) : (
+              <Link href="/login" className="btn btn-danger w-100 w-lg-auto">
+                Войти
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </nav>

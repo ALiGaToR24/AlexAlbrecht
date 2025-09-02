@@ -1,0 +1,95 @@
+/* Секция */
+.wrap{
+  background:#101011;
+}
+
+.title{
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Карточка FAQ */
+.card{
+  border-radius:20px;
+  background:#141415;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+  overflow:hidden; /* чтобы радиус работал на панели */
+  transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.card:hover{
+  border-color: rgba(255,255,255,.16);
+}
+
+/* Шапка-кнопка */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  width:100%;
+  background:transparent;
+  border:0;
+  padding:22px 22px;
+  text-align:left;
+  color:#fff;
+  cursor:pointer;
+}
+.header:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(231,21,68,.35) inset;
+  border-radius:20px;
+}
+.q{
+  font-weight:600;
+  font-size: clamp(16px, 1.4vw, 18px);
+}
+
+/* Плюс/минус */
+.icon{
+  flex:0 0 32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+}
+.icon svg{
+  width:18px; height:18px;
+  stroke:#fff;
+  stroke-width:2;
+  fill:none;
+  transition: transform .25s ease;
+}
+.icon .v{ transition: opacity .2s ease, transform .2s ease; }
+.open .icon .v{ opacity:0; transform: scaleY(0.2); } /* вертикальная палка прячется → получается «минус» */
+
+/* Панель */
+.panel{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .35s ease;
+  will-change: max-height;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.inner{
+  padding: 14px 22px 22px;
+  color: rgba(255,255,255,.75);
+  font-size:15px;
+  line-height:1.55;
+}
+
+/* Открытое состояние (чуть приподнимаем карточку) */
+.open{
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+  transform: translateY(-2px);
+}
+
+/* Мобайл */
+@media (max-width: 575.98px){
+  .header{ padding:18px; }
+  .inner{ padding: 8px 18px 18px; }
+}

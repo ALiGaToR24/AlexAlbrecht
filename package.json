@@ -8,16 +8,22 @@
     "start": "next start"
   },
   "dependencies": {
+    "argon2": "^0.44.0",
     "bootstrap": "^5.3.7",
     "git": "^0.1.5",
+    "mongodb": "^6.19.0",
     "next": "15.5.0",
+    "next-auth": "^4.24.11",
+    "nodemailer": "^6.10.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "swiper": "^11.2.10"
+    "swiper": "^11.2.10",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",
     "@types/node": "^20",
+    "@types/nodemailer": "^7.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "typescript": "^5"

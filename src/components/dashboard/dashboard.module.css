@@ -1,0 +1,136 @@
+/* =========================
+   LAYOUT / GRID
+   ========================= */
+
+/* Корневая сетка лк */
+.wrap {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+}
+
+/* Основная колонка */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Левый столбец — липкий (используется в DashboardNav) */
+.side {
+  position: sticky;
+  top: calc(var(--nav-h, 72px) + 16px);
+}
+
+/* Мобилка */
+@media (max-width: 991.98px){
+  .wrap { grid-template-columns: 1fr; }
+}
+
+/* =========================
+   PANELS / CARDS
+   ========================= */
+
+/* Универсальная «стеклянная» карточка (использует Panel.tsx) */
+.card {
+  background: #141415;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+}
+
+/* Старый «sidebar»-контейнер (оставлен для совместимости) */
+.sidebar {
+  background: #141415;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+}
+
+/* =========================
+   SIDE NAV (ссылки/кнопки)
+   ========================= */
+
+.sideLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background-color .15s ease, border-color .15s ease, transform .15s ease;
+}
+.sideLink:hover {
+  background: #1a1a1d;
+  border-color: rgba(255,255,255,.08);
+}
+.sideActive {
+  background: #201116;
+  border-color: rgba(231,21,68,.45);
+  box-shadow: 0 12px 30px rgba(231,21,68,.18);
+}
+
+/* Старые «кнопки» в сайдбаре — оставлены для обратной совместимости */
+.sideBtn{
+  background:#1a1a1d;
+  border:1px solid rgba(255,255,255,.08);
+  color:#fff;
+  text-align:left;
+  padding:10px 12px;
+  border-radius:12px;
+  transition:transform .15s ease, border-color .15s ease, background-color .15s ease;
+}
+.sideBtn:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.2); }
+.sideBtnActive{ background:#E71544; border-color:#E71544; }
+
+/* =========================
+   ROLE BADGE
+   ========================= */
+
+.roleBadge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  font-weight:800;
+  font-size:12.5px;
+  letter-spacing:.02em;
+  color:#fff;
+  border-radius:999px;
+  border:1px solid transparent;
+  user-select:none;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25); /* базовая тень */
+}
+.roleBadgeSm{
+  gap:6px;
+  padding:4px 8px;
+  font-size:11.5px;
+}
+
+.roleDot{
+  width:8px; height:8px; border-radius:999px; background: #fff; opacity:.9;
+}
+
+/* Цвета/свечение под роли (сохраняем твою палитру) */
+.roleAdmin{
+  background:#E71544; border-color:#E71544;
+  box-shadow: 0 10px 28px rgba(231,21,68,.32), 0 1px 0 rgba(255,255,255,.04) inset;
+}
+.roleInstructor{
+  background:#3A86FF; border-color:#3A86FF;
+  box-shadow: 0 10px 28px rgba(58,134,255,.28), 0 1px 0 rgba(255,255,255,.04) inset;
+}
+.roleStudent{
+  background:#22C55E; border-color:#22C55E;
+  box-shadow: 0 10px 28px rgba(34,197,94,.28), 0 1px 0 rgba(255,255,255,.04) inset;
+}
+
+/* =========================
+   TABLE / TEXT HELPERS
+   ========================= */
+
+.tableWrap { overflow: auto; }
+.muted { color: rgba(255,255,255,.6); }

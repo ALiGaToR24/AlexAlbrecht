@@ -1,0 +1,78 @@
+/* секция */
+.wrap{ background:#101011; }
+
+.title{
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height:1.05;
+  font-weight:800;
+  letter-spacing:-0.02em;
+}
+
+/* карточка */
+.card{
+  background:#141415;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+  border-radius:22px;
+  padding:18px;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(231,21,68,.45);
+  box-shadow: 0 14px 36px rgba(0,0,0,.45);
+}
+
+/* круглый аватар */
+.avatar{
+  width:112px;
+  height:112px;
+  border-radius:999px;
+  overflow:hidden;
+  background:#0d0d0e;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  flex:0 0 auto;
+}
+.avatar :global(img){
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+/* тексты */
+.muted{ color: rgba(255,255,255,.6); font-size:14px; }
+.bio{ color: rgba(255,255,255,.78); }
+
+/* бейджи */
+.chip{
+  display:inline-flex;
+  align-items:center;
+  height:26px;
+  padding:0 10px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.02em;
+  border:1px solid transparent;
+}
+.chipSoft{
+  color:#fff;
+  background:rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.08);
+}
+.chipDark{
+  color:#fff;
+  background:rgba(0,0,0,.35);
+  border-color: rgba(255,255,255,.12);
+}
+.chipRed{
+  color:#fff;
+  background:#E71544;
+  box-shadow: 0 6px 18px rgba(231,21,68,.35);
+}
+
+/* адаптив: аватар поменьше на мобиле */
+@media (max-width: 575.98px){
+  .avatar{ width:92px; height:92px; }
+}
