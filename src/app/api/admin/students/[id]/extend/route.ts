@@ -1,66 +1,52 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { ObjectId } from "mongodb";
 import { auth } from "@/auth";
 import { getDb } from "@/lib/mongo";
-import { ObjectId, type WithId, type Document } from "mongodb";
-import { z } from "zod";
 
 export const runtime = "nodejs";
+type Ctx = { params: Promise<{ id: string }> };
 
-// В Next 15+ params в контексте асинхронные
-type RouteCtx = { params: Promise<{ id: string }> };
+function addMonths(d: Date, m: number) {
+  const nd = new Date(d);
+  nd.setMonth(nd.getMonth() + m);
+  return nd;
+}
 
-const bodySchema = z.object({
-  months: z.number().int().min(1).max(24).default(6),
-});
-
-export async function POST(req: NextRequest, ctx: RouteCtx) {
-  // Доступ только ADMIN / INSTRUCTOR
+export async function POST(req: NextRequest, ctx: Ctx) {
   const session = await auth();
   const role = session?.user?.role;
   if (!session || (role !== "ADMIN" && role !== "INSTRUCTOR")) {
     return NextResponse.json({ ok: false, error: "Forbidden" }, { status: 403 });
-  }
+    }
 
-  // Достаём id из асинхронных params
   const { id } = await ctx.params;
   if (!ObjectId.isValid(id)) {
     return NextResponse.json({ ok: false, error: "Invalid id" }, { status: 400 });
   }
 
-  // Тело запроса
-  const parsed = bodySchema.safeParse(await req.json().catch(() => ({})));
-  const months = parsed.success ? parsed.data.months : 6;
+  const body = await req.json().catch(() => ({}));
+  let months = Number(body?.months ?? 6);
+  if (!Number.isFinite(months) || months < 1 || months > 36) months = 6;
 
   const db = await getDb();
   const coll = db.collection("users");
 
-  // Универсально для разных версий драйвера:
-  // в одних — { value: doc }, в других — doc | null
-  const rawRes = await coll.findOneAndUpdate(
-    { _id: new ObjectId(id) },
-    [
-      {
-        $set: {
-          expiresAt: {
-            $dateAdd: {
-              startDate: { $ifNull: ["$expiresAt", "$$NOW"] },
-              unit: "month",
-              amount: months,
-            },
-          },
-          updatedAt: "$$NOW",
-        },
-      },
-    ],
-    { returnDocument: "after" as any }
-  );
-
-  const doc = (rawRes as any)?.value ?? (rawRes as WithId<Document> | null);
+  // читаем текущую дату истечения
+  const doc = await coll.findOne<{ expiresAt?: Date }>({ _id: new ObjectId(id) }, { projection: { expiresAt: 1 } });
   if (!doc) {
     return NextResponse.json({ ok: false, error: "Not found" }, { status: 404 });
   }
 
-  const expiresAt = (doc as any).expiresAt ?? null;
+  const base = doc.expiresAt instanceof Date && !Number.isNaN(doc.expiresAt.getTime())
+    ? doc.expiresAt
+    : new Date();
 
-  return NextResponse.json({ ok: true, expiresAt }, { status: 200 });
+  const newExpires = addMonths(base, months);
+
+  await coll.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: { expiresAt: newExpires, updatedAt: new Date() } }
+  );
+
+  return NextResponse.json({ ok: true, expiresAt: newExpires }, { status: 200 });
 }
