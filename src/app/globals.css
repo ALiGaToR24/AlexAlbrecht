@@ -4,19 +4,25 @@
 }
 
 
-*, *::before, *::after { box-sizing: border-box; }
-
-html { height: 100%; }
-
-body {
-  font-family: var(--font-dm-sans);
-  min-height: 100%;
-  overflow-x: hidden;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.nav-spacer{
+
+html,
+body {
+  font-family: var(--font-dm-sans);
+  height: 100%;
+  min-height: 100%;
+  overflow-x: clip;
+  touch-action: pan-y;
+}
+
+.nav-spacer {
   height: var(--nav-h);
-  background: #0f0f10;               
+  background: #0f0f10;
 }
 
 .sectionPadded {

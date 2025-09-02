@@ -24,6 +24,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ru">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#0f0f10" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f10" />
+
+        {/* для iOS как standalone (на главном экране) */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
       <body className={dmSans.variable}>
         {/* Глобальные провайдеры (SessionProvider + Bootstrap JS) */}

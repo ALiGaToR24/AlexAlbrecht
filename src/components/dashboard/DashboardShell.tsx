@@ -5,13 +5,16 @@ import DashboardNav from "./DashboardNav";
 import CreateStudentCard from "./CreateStudentCard";
 import StudentsTable from "./StudentsTable";
 import Panel from "./Panel";
+import AccountSettings from "./AccountSettings"; // 👈 добавили
 import type { Role, UserProfile } from "./types";
 
 function Placeholder({ title, text }: { title: string; text?: string }) {
   return (
     <Panel className="p-3">
       <h5 className="text-white mb-2">{title}</h5>
-      <p className="text-white-50 mb-0">{text || "Раздел скоро будет оформлен. Здесь появится полезный функционал."}</p>
+      <p className="text-white-50 mb-0">
+        {text || "Раздел скоро будет оформлен. Здесь появится полезный функционал."}
+      </p>
     </Panel>
   );
 }
@@ -53,12 +56,11 @@ export default function DashboardShell({
                 <div className="text-white-50">
                   <div><b className="text-white">E-mail:</b> {email || "—"}</div>
                   {!!fullName && <div><b className="text-white">Имя:</b> {fullName}</div>}
-                  <div><b className="text-white">Доступ до:</b> {expiresStr}</div>
                 </div>
               </Panel>
             )}
 
-            {/* Общие разделы для студента/препода/админа */}
+            {/* Общие разделы */}
             {tab === "materials" && <Placeholder title="Материалы" text="PDF/ссылки/теория — добавим позже." />}
             {tab === "schedule"  && <Placeholder title="Расписание" text="Здесь будет календарь занятий." />}
             {tab === "progress"  && <Placeholder title="Прогресс" text="Графики часов, спецпоездок и статус экзаменов." />}
@@ -73,11 +75,13 @@ export default function DashboardShell({
             {role === "ADMIN" && tab === "instructors" && <Placeholder title="Инструкторы" text="Список инструкторов, доступы, нагрузка." />}
             {role === "ADMIN" && tab === "courses"     && <Placeholder title="Курсы" text="Настройка групп/интенсивов." />}
             {role === "ADMIN" && tab === "news"        && <Placeholder title="Объявления" text="Рассылки, баннеры, алерты." />}
-            {role === "ADMIN" && tab === "settings"    && <Placeholder title="Настройки" text="Общие настройки кабинета." />}
+
+            {/* Настройки — ДОСТУПНЫ ВСЕМ */}
+            {tab === "settings" && <AccountSettings />}
           </div>
         </div>
 
-        {/* Лёгкий нижний отступ под колонками, чтобы футер не прилипал визуально */}
+        {/* Лёгкий нижний отступ, чтобы футер не прилипал визуально */}
         <div style={{ height: 12 }} />
       </div>
     </section>

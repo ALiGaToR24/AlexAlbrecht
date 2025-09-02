@@ -16,31 +16,13 @@ type Instructor = {
 const TEAM: Instructor[] = [
   {
     id: "alex",
-    name: "Александр",
+    name: "Alex Albrecht",
     photo: "/instructors/alex.jpg",
     languages: ["RU", "DE"],
     transmissions: ["AT", "MT"],
     years: 8,
-    bio: "Спокойная подача, сильная работа с психологией экзамена и маршрутов TÜV.",
-  },
-  {
-    id: "maria",
-    name: "Мария",
-    photo: "/instructors/maria.jpg",
-    languages: ["RU", "DE", "EN"],
-    transmissions: ["AT"],
-    years: 6,
-    bio: "Быстро ставит базу и парковки. Индивидуальные планы под интенсив.",
-  },
-  {
-    id: "sergey",
-    name: "Сергей",
-    photo: "/instructors/sergey.jpg",
-    languages: ["RU"],
-    transmissions: ["MT"],
-    years: 10,
     bio: "Механика без стресса. Методично разбираем типовые ловушки на экзамене.",
-  },
+  }
 ];
 
 export default function Instructors() {

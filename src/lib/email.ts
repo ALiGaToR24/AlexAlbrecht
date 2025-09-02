@@ -15,19 +15,14 @@ type WelcomeEmailParams = {
   to: string;            // адрес получателя
   email: string;         // логин
   password: string;      // временный пароль
-  expiresAt?: Date;      // опционально — дата конца доступа
 };
 
 export async function sendWelcomeStudentEmail({
-  to, email, password, expiresAt,
+  to, email, password,
 }: WelcomeEmailParams) {
   const from = process.env.MAIL_FROM || "Prodriver247 <no-reply@prodriver247.de>";
   const base = process.env.NEXTAUTH_URL || "http://localhost:3000";
   const loginUrl = `${base}/login`;
-
-  const expiresStr = expiresAt
-    ? new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" }).format(expiresAt)
-    : null;
 
   const subject = "Ваш доступ в личный кабинет — Prodriver247";
 
@@ -40,7 +35,6 @@ export async function sendWelcomeStudentEmail({
     `Пароль: ${password}`,
     "",
     "Важно: при первом входе смените пароль в профиле.",
-    expiresStr ? `Доступ действует до: ${expiresStr}` : "",
     `Войти: ${loginUrl}`,
     "",
     "Если вы не запрашивали доступ — проигнорируйте письмо.",
@@ -98,11 +92,6 @@ export async function sendWelcomeStudentEmail({
                       <div style="font-family:ui-monospace, Menlo, Consolas, monospace; font-size:14px;">${password}</div>
                     </div>
                   </div>
-                  ${expiresStr ? `
-                  <div style="margin-top:10px; font-size:12.5px; color:#ffdde5;">
-                    Доступ активен до: <b>${expiresStr}</b>
-                  </div>
-                  ` : "" }
                 </div>
 
                 <!-- CTA -->

@@ -14,7 +14,13 @@ export default function Navbar() {
   const pathname = usePathname();
   const onDashboard = pathname?.startsWith("/dashboard");
 
-  // сохраняем высоту navbar в CSS-переменную --nav-h
+  // 1) подгружаем bootstrap.bundle.js на клиенте (на всякий случай)
+  useEffect(() => {
+    // если уже подключено глобально — просто не помешает
+    import("bootstrap/dist/js/bootstrap.bundle.min.js").catch(() => {});
+  }, []);
+
+  // 2) сохраняем высоту navbar в CSS-переменную --nav-h
   useEffect(() => {
     const setNavH = () => {
       const h = navRef.current?.offsetHeight ?? 72;
@@ -25,12 +31,13 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", setNavH);
   }, []);
 
+  const collapseId = "navCollapse"; // явный id, совпадает с data-bs-target
+
   return (
     <nav
       ref={navRef}
       className={`navbar navbar-expand-lg navbar-dark fixed-top border-bottom ${styles.navbarCustom}`}
     >
-      {/* Ограничиваем ширину, чтобы правая кнопка не «улетала» */}
       <div className="container">
         {/* ЛОГО слева */}
         <Link href="/" className="navbar-brand d-flex align-items-center gap-2">
@@ -46,20 +53,22 @@ export default function Navbar() {
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#mainNavbar"
-          aria-controls="mainNavbar"
+          data-bs-target={`#${collapseId}`}
+          aria-controls={collapseId}
           aria-expanded="false"
           aria-label="Toggle navigation"
+          // иногда полезно поднять z-index, чтобы ничего не перекрывало кнопку
+          style={{ zIndex: 1051 }}
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
 
         {/* Центр + Справа */}
-        <div className="collapse navbar-collapse" id="mainNavbar">
-          {/* ССЫЛКИ — по центру */}
+        <div className="collapse navbar-collapse" id={collapseId}>
+          {/* Ссылки — по центру */}
           <ul className={`navbar-nav mx-auto ${styles.navbarNav}`}>
             <li className="nav-item">
-              <Link href="/start" className={`${styles.navItemFlex} ${styles.startButton}`}>
+              <Link href="/" className={`${styles.navItemFlex} ${styles.startButton}`}>
                 <Image src="/icons/start.svg" width={24} height={24} alt="Start icon" />
                 Start
               </Link>
@@ -94,7 +103,7 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* СПРАВА: Личный кабинет / Войти / Выйти */}
+          {/* Справа: ЛК / Войти / Выйти */}
           <div className="d-flex align-items-center ms-lg-3 my-2 my-lg-0">
             {isAuthed ? (
               onDashboard ? (
