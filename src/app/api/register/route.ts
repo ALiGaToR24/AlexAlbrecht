@@ -3,7 +3,9 @@ import { getDb } from "@/lib/mongo";
 import { z } from "zod";
 import argon2 from "argon2";
 
-export const runtime = "nodejs";
+export const runtime = "nodejs";          // чтобы не использовать Edge
+export const dynamic = "force-dynamic";   // не пытаться предрендерить/кэшировать
+export const revalidate = 0;              // (на всякий) отключить ISR
 
 const schema = z.object({
   name: z.string().min(1).max(80),

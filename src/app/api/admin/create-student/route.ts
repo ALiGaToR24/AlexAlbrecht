@@ -7,6 +7,8 @@ import { getDb } from "@/lib/mongo";
 import { sendWelcomeStudentEmail } from "@/lib/email"; // <— используем красивое письмо
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";   // не пытаться предрендерить/кэшировать
+export const revalidate = 0;              // (на всякий) отключить ISR
 
 /** Добавить N месяцев к дате */
 function addMonths(d: Date, m: number) {

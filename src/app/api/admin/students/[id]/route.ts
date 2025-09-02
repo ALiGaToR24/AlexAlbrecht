@@ -4,7 +4,9 @@ import { getDb } from "@/lib/mongo";
 import { ObjectId } from "mongodb";
 import { z } from "zod";
 
-export const runtime = "nodejs";
+export const runtime = "nodejs";          // чтобы не использовать Edge
+export const dynamic = "force-dynamic";   // не пытаться предрендерить/кэшировать
+export const revalidate = 0;              // (на всякий) отключить ISR
 
 // В Next 15+ params — Promise
 type Ctx = { params: Promise<{ id: string }> };

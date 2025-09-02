@@ -3,7 +3,10 @@ import { ObjectId } from "mongodb";
 import { auth } from "@/auth";
 import { getDb } from "@/lib/mongo";
 
-export const runtime = "nodejs";
+export const runtime = "nodejs";          // чтобы не использовать Edge
+export const dynamic = "force-dynamic";   // не пытаться предрендерить/кэшировать
+export const revalidate = 0;              // (на всякий) отключить ISR
+
 type Ctx = { params: Promise<{ id: string }> };
 
 function addMonths(d: Date, m: number) {
