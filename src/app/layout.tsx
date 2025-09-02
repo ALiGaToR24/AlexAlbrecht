@@ -3,6 +3,7 @@ import { DM_Sans } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import Providers from "@/components/providers/Providers";
+import ToastProvider from "@/components/ui/ToastProvider";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -34,11 +35,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={dmSans.variable}>
         {/* Глобальные провайдеры (SessionProvider + Bootstrap JS) */}
         <Providers>
-          {/* 
-            Если хочешь глобальный ограничитель ширины — оставляй container-1080.
-            Если на некоторых страницах нужен full-bleed, оборачивай секции в свои контейнеры там.
-          */}
-          <main className="container-1080">{children}</main>
+          <ToastProvider>
+            <main className="container-1080">{children}</main>
+          </ToastProvider>
         </Providers>
       </body>
     </html>

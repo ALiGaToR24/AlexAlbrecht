@@ -1,6 +1,6 @@
 "use client";
-
 import { useState } from "react";
+import { useToast } from "@/components/ui/ToastProvider";
 
 export default function ContactForm() {
   const cardStyle: React.CSSProperties = {
@@ -9,18 +9,22 @@ export default function ContactForm() {
     boxShadow: "inset 0 1px 0 rgba(255,255,255,.03)",
     borderRadius: 16,
   };
-
   const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    // TODO: отправка через API/Formspree/Telegram и т.п.
-    setTimeout(() => {
-      setLoading(false);
-      alert("Спасибо! Мы свяжемся с вами в ближайшее время.");
+    try {
+      // TODO: отправка на API, сейчас — имитация
+      await new Promise((r) => setTimeout(r, 700));
+      toast.success("Спасибо! Мы свяжемся с вами в ближайшее время.");
       (e.target as HTMLFormElement).reset();
-    }, 600);
+    } catch {
+      toast.error("Не удалось отправить сообщение. Попробуйте позже.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,7 +52,14 @@ export default function ContactForm() {
 
       <div className="d-flex align-items-center gap-3 mt-3">
         <button className="btn btn-danger btn-lg" disabled={loading}>
-          {loading ? "Отправляем…" : "Отправить"}
+          {loading ? (
+            <svg className="spin" width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 10a8 8 0 0 1 13.657-3.657" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M18 4v4h-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M20 14a8 8 0 0 1-13.657 3.657" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M6 20v-4h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          ) : "Отправить"}
         </button>
         <span className="small text-white-50">
           Нажимая «Отправить», вы соглашаетесь с нашей{" "}

@@ -61,47 +61,47 @@ export default function Footer() {
             <h6 className="text-white mb-3 text-uppercase small">Мы в соцсетях</h6>
             <div className="d-flex flex-wrap gap-2">
               <a
-                className="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                className="btn btn-sm p-0 d-flex align-items-center justify-content-center"
                 style={{ width: 36, height: 36 }}
                 href="https://instagram.com/yourprofile"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
               >
-                <Image src="/icons/instagram.png" width={36} height={36} alt="Instagram" />
+                <Image src="/icons/instagram.svg" width={36} height={36} alt="Instagram" />
               </a>
 
               <a
-                className="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                className="btn btn-sm p-0 d-flex align-items-center justify-content-center"
                 style={{ width: 36, height: 36 }}
                 href="https://facebook.com/yourpage"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
               >
-                <Image src="/icons/facebook.png" width={36} height={36} alt="Facebook" />
+                <Image src="/icons/facebook.svg" width={36} height={36} alt="Facebook" />
               </a>
 
               <a
-                className="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                className="btn btn-sm p-0 d-flex align-items-center justify-content-center"
                 style={{ width: 36, height: 36 }}
                 href="https://youtube.com/@yourchannel"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
               >
-                <Image src="/icons/youtube.png" width={36} height={36} alt="YouTube" />
+                <Image src="/icons/youtube.svg" width={36} height={36} alt="YouTube" />
               </a>
 
               <a
-                className="btn btn-outline-light btn-sm rounded-circle p-0 d-flex align-items-center justify-content-center"
+                className="btn btn-sm p-0 d-flex align-items-center justify-content-center"
                 style={{ width: 36, height: 36 }}
                 href="https://t.me/yourusername"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Telegram"
               >
-                <Image src="/icons/telegram.png" width={36} height={36} alt="Telegram" />
+                <Image src="/icons/telegram.svg" width={36} height={36} alt="Telegram" />
               </a>
             </div>
           </div>

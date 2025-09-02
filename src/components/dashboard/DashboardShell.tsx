@@ -66,6 +66,7 @@ export default function DashboardShell({
             {tab === "progress"  && <Placeholder title="Прогресс" text="Графики часов, спецпоездок и статус экзаменов." />}
             {tab === "payments"  && <Placeholder title="Платежи" text="История оплат и баланс." />}
             {tab === "support"   && <Placeholder title="Поддержка" text="Форма связи с автошколой." />}
+            
 
             {/* Управление (инструктор/админ) */}
             {(role === "ADMIN" || role === "INSTRUCTOR") && tab === "create"   && <CreateStudentCard />}

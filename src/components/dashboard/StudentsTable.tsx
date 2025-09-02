@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Panel from "./Panel";
 import type { Student } from "./types";
+import { useToast } from "@/components/ui/ToastProvider";
 
 /** Утилита для форматирования дат */
 function formatDate(d?: string | Date) {
@@ -41,17 +42,26 @@ export default function StudentsTable() {
   const [months, setMonths] = useState(6);
   const [busy, setBusy] = useState<"" | "save" | "extend" | "delete">("");
 
+
+  const toast = useToast();
+
   async function load() {
-    setLoading(true);
-    const res = await fetch(`/api/admin/students?q=${encodeURIComponent(q)}`);
-    const data = await res.json();
-    setItems(data.items || []);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/admin/students?q=${encodeURIComponent(q)}`);
+      const data = await res.json();
+      setItems(data.items || []);
+    } catch {
+      toast.error("Не удалось загрузить список учеников");
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => { load(); }, []); // первичная загрузка
 
   const onSearch = (e: React.FormEvent) => { e.preventDefault(); load(); };
+
 
   /** Открыть модалку и проставить состояние */
   const open = async (st: Student) => {
@@ -59,10 +69,10 @@ export default function StudentsTable() {
     setEdit({
       phone: st.phone || "",
       firstName: st.profile?.firstName || "",
-      lastName:  st.profile?.lastName  || "",
-      address:   st.profile?.address   || "",
-      plz:       st.profile?.plz       || "",
-      city:      st.profile?.city      || "",
+      lastName: st.profile?.lastName || "",
+      address: st.profile?.address || "",
+      plz: st.profile?.plz || "",
+      city: st.profile?.city || "",
     });
     setMonths(6);
     await showStudentModal();
@@ -79,12 +89,14 @@ export default function StudentsTable() {
     });
     setBusy("");
     if (res.ok) {
+      toast.success("Изменения были сохранены");
       await load();
       const upd = (await (await fetch(`/api/admin/students?q=${encodeURIComponent(selected.email)}`)).json()).items?.[0];
       if (upd) setSelected(upd);
     } else {
-      alert("Не удалось сохранить");
+      toast.error("Не удалось сохранить изменения");
     }
+
   };
 
   const extend = async () => {
@@ -101,8 +113,9 @@ export default function StudentsTable() {
       const data = await res.json();
       setSelected({ ...(selected as any), expiresAt: data.expiresAt });
       await load();
+      toast.success("Доступ был продлён");
     } else {
-      alert("Не удалось продлить");
+      toast.error("Не удалось продлить доступ");
     }
   };
 
@@ -116,8 +129,9 @@ export default function StudentsTable() {
     if (res.ok) {
       setSelected(null);
       await load();
+      toast.success("Ученик был удален");
     } else {
-      alert("Не удалось удалить");
+      toast.error("Не удалось удалить ученика");
     }
   };
 
