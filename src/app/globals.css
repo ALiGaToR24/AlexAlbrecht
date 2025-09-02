@@ -18,6 +18,8 @@ body {
   min-height: 100%;
   overflow-x: clip;
   touch-action: pan-y;
+  color-scheme: dark;
+  background: #0f0f10;
 }
 
 .nav-spacer {
@@ -37,33 +39,75 @@ body {
 }
 
 /* --- TOASTS --- */
-.toast-stack { pointer-events: none; } /* клики проходят, кроме кнопки внутри */
+.toast-stack {
+  pointer-events: none;
+}
+
+/* клики проходят, кроме кнопки внутри */
 .toastBox {
   pointer-events: auto;
   min-width: 280px;
   max-width: 360px;
   border-radius: 14px;
   background: #141415;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(255, 255, 255, .08);
   padding: 12px 12px;
   color: #fff;
-  box-shadow: 0 12px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .03);
   margin-bottom: 10px;
   position: relative;
 }
-.toastBox::before{
-  content:"";
-  position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:14px 0 0 14px;
-  opacity:.9;
-}
-.toastBox.success::before{ background:#22C55E; }
-.toastBox.error::before{ background:#E71544; }
-.toastBox.info::before{ background:#3A86FF; }
 
-.toastIcon { width:20px; height:20px; display:grid; place-items:center; opacity:.9; }
-.toastTitle { font-weight:700; line-height:1.1; margin-bottom:2px; }
-.toastMsg { color: rgba(255,255,255,.82); font-size: 14px; }
+.toastBox::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 14px 0 0 14px;
+  opacity: .9;
+}
+
+.toastBox.success::before {
+  background: #22C55E;
+}
+
+.toastBox.error::before {
+  background: #E71544;
+}
+
+.toastBox.info::before {
+  background: #3A86FF;
+}
+
+.toastIcon {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  opacity: .9;
+}
+
+.toastTitle {
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+
+.toastMsg {
+  color: rgba(255, 255, 255, .82);
+  font-size: 14px;
+}
 
 /* --- ARROW SPINNER --- */
-.spin { animation: spin 1s linear infinite; display:inline-block; }
-@keyframes spin { to { transform: rotate(360deg); } }
+.spin {
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

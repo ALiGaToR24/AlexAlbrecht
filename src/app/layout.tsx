@@ -25,10 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ru">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#0f0f10" />
-        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f10" />
-
-        {/* для iOS как standalone (на главном экране) */}
+        <meta name="theme-color" content="#0f0f10" />
+        {/* Эти два работают только для PWA-иконки на Домашнем экране */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
