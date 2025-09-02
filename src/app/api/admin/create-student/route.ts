@@ -102,7 +102,6 @@ export async function POST(req: Request) {
       to: emailNorm,
       email: emailNorm,
       password,
-      expiresAt,
     });
   } catch (e) {
     mailed = false;
