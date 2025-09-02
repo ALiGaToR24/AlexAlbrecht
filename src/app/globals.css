@@ -22,6 +22,16 @@ body {
   background: #0f0f10;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: env(safe-area-inset-top);
+  background: #0f0f10;
+  z-index: 10000; /* поверх всего */
+  pointer-events: none;
+}
+
 .nav-spacer {
   height: var(--nav-h);
   background: #0f0f10;
